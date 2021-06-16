@@ -13,7 +13,6 @@ pipeline {
 				echo 'Compiling worker app'
 				dir('worker'){
 					sh 'pwd'
-					sh 'ping "repo.maven.apache.org"'
 					sh 'mvn compile'
 				}
 			}
