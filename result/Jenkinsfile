@@ -1,0 +1,50 @@
+pipeline {
+
+        agent any
+
+        tools {
+                nodejs 'NodeJS 8.9.0'
+        }
+
+        stages {
+                stage('build'){
+                        when {
+                                changeset "**/result/**"
+                        }
+                        steps {
+                                echo 'Compiling result app'
+                                dir('result'){
+                                        sh 'npm install'
+                                }
+                        }
+                }
+
+                stage('test'){
+                        when {
+                                changeset "**/result/**"
+                        }
+                        steps {
+                                echo 'Running Unit test on Result app'
+                                dir('result'){
+                                        sh 'npm install'
+                                        sh 'npm test'
+                                }
+                        }
+                }
+
+        }
+
+        post {
+                always{
+                        echo 'Build pipeline for result is complete'
+                }
+
+                success{
+                        echo 'Build pipeline for result is successfully complete'
+                }
+
+                failure{
+                        echo 'Build pipeline for result is failure'
+                }
+        }
+}
