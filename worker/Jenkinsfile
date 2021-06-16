@@ -8,6 +8,9 @@ pipeline {
 	
 	stages {
 		stage('build'){
+			when {
+				changeset "**/worker/**"
+			}
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
@@ -17,14 +20,26 @@ pipeline {
 		}
 		
 		stage('test'){
+                        when {
+                                changeset "**/worker/**"
+                        }
 			steps {
 				echo 'Running Unit test on Worker app'
+                                dir('worker'){
+                                        sh 'mvn clean test'
+                                }
 			}
 		}
 		
 		stage('package'){
+                        when {
+                                changeset "**/worker/**"
+                        }
 			steps {
 				echo 'Packaging Worker app'
+                                dir('worker'){
+                                        sh 'mvn package'
+                                }
 			}
 		}
 	}
@@ -33,5 +48,13 @@ pipeline {
 		always{
 			echo 'Build pipeline for worker is complete'
 		}
+
+                success{
+                        echo 'Build pipeline for worker is successfully complete'
+                }
+
+                failure{
+                        echo 'Build pipeline for worker is failure'
+                }
 	}
 }
