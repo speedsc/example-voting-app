@@ -11,7 +11,8 @@ pipeline {
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
-					sh 'cat "199.232.192.215 repo.maven.apache.org" >> /etc/hosts'
+					sh 'cat /etc/resolve.conf'
+					sh 'sudo cat "199.232.192.215 repo.maven.apache.org" >> /etc/hosts'
 					sh 'mvn compile'
 				}
 			}
