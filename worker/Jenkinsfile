@@ -12,7 +12,9 @@ pipeline {
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
-					pwd && ping repo.maven.apache.org && sh 'mvn compile'
+					sh 'pwd'
+					sh 'ping repo.maven.apache.org'
+					sh 'mvn compile'
 				}
 			}
 		}
