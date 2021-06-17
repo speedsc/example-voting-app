@@ -2,18 +2,22 @@ pipeline {
 
     	agent {
         	docker {
-            		image 'maven:3.6.1-jdk-8-alpine'
-            		args '-v $HOME/.m2:/root/.m2'
+            		image 'maven:3.6.1-jdk-8'
+            		args '--user root'
         	}
     	}
 	
 	stages {
 		stage('build'){
+                        when {
+                                changeset "**/worker/**"
+                        }
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
-					sh 'pwd'
-					sh 'ping "repo.maven.apache.org"'
+					sh 'cat /etc/hosts'
+					sh 'echo "199.232.192.215 repo.maven.apache.org" >> /etc/hosts'
+					sh 'cat /etc/hosts'
 					sh 'mvn compile'
 				}
 			}
