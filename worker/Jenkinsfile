@@ -9,6 +9,9 @@ pipeline {
 	
 	stages {
 		stage('build'){
+                        when {
+                                changeset "**/worker/**"
+                        }
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
