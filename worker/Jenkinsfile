@@ -43,6 +43,7 @@ pipeline {
 				echo 'Packaging Worker app'
                                 dir('worker'){
                                         sh 'mvn package'
+                                        sh 'chmod -R 777 .'
 					archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                                 }
 			}
