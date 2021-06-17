@@ -12,8 +12,9 @@ pipeline {
 			steps {
 				echo 'Compiling worker app'
 				dir('worker'){
-					sh 'cat /etc/nsswitch.conf'
-					sh 'cat "199.232.192.215 repo.maven.apache.org" >> /etc/hosts'
+					sh 'cat /etc/hosts'
+					sh 'echo "199.232.192.215 repo.maven.apache.org" >> /etc/hosts'
+					sh 'cat /etc/hosts'
 					sh 'mvn compile'
 				}
 			}
